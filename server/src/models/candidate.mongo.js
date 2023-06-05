@@ -27,7 +27,9 @@ const CandidateSchema = mongoose.Schema(
       },
     ],
   },
-  { timestamps: true }
+  {
+    timestamps: true,
+  }
 );
 
 module.exports = mongoose.model('Candidate', CandidateSchema);
