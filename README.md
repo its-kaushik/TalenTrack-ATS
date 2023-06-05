@@ -1,4 +1,4 @@
-# Application Tracking System (ATS)
+# TalenTrack - Application Tracking System (ATS)
 
 ## Table Of Contents :
 
