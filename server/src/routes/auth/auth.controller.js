@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken');
 const statuscode = require('http-status');
 
 const User = require('../../models/user.mongo');
-const Api404Error = require('../../errors/Api404Error');
+const Api404Error = require('../../errors/api404Error');
 const BaseError = require('../../errors/baseError');
 
 //const { createUser } = require('../../utils/userFactory');
