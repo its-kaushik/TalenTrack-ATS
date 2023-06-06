@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const validator = require('validator');
 
-const HRSchema = new mongoose.Schema(
+const UserSchema = new mongoose.Schema(
   {
     name: {
       type: String,
@@ -23,10 +23,19 @@ const HRSchema = new mongoose.Schema(
     companyID: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Company',
-      required: true,
+    },
+    resumes: [
+      {
+        name: String,
+        fileUrl: String,
+      },
+    ],
+    role: {
+      type: String,
+      immutable: true,
     },
   },
   { timestamps: true }
 );
 
-module.exports = mongoose.model('HR', HRSchema);
+module.exports = mongoose.model('User', UserSchema);
