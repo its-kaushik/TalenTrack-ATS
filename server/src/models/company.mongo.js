@@ -10,6 +10,9 @@ const CompanySchema = new mongoose.Schema(
       type: String,
       required: [true, 'Address is required.'],
     },
+    logoURL: {
+      type: String,
+    },
   },
   {
     timestamps: true,
