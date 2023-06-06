@@ -13,6 +13,7 @@ function logErrorMiddleware(err, req, res, next) {
 
 function returnError(err, req, res, next) {
   res.status(err.statusCode || statuscode.INTERNAL_SERVER_ERROR).json({
+    status: err.statusCode || statuscode.INTERNAL_SERVER_ERROR,
     message: err.message,
   });
 }
