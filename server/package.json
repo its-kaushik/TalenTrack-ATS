@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "backend of the Application Tracking System",
   "main": "src/server.js",
+  "engine": {
+    "node": ">=10.6.0"
+  },
   "scripts": {
     "start": "node ./src/server.js",
     "watch": "nodemon ./src/server.js"
@@ -23,10 +26,12 @@
     "prettier": "^2.8.8"
   },
   "dependencies": {
+    "bcrypt": "^5.1.0",
     "cors": "^2.8.5",
     "dotenv": "^16.1.4",
     "express": "^4.18.2",
     "http-status": "^1.6.2",
+    "jsonwebtoken": "^9.0.0",
     "mongoose": "^7.2.2",
     "validator": "^13.9.0"
   }
