@@ -20,7 +20,10 @@ async function register(req, res, next) {
 
     await newUser.save();
 
-    res.status(statuscode.CREATED).send('User has been created.');
+    res.status(statuscode.CREATED).json({
+      status: 201,
+      message: 'User created successfully.',
+    });
   } catch (err) {
     next(err);
   }
@@ -37,7 +40,7 @@ async function login(req, res, next) {
 
     const accessToken = jwt.sign(
       { id: user.id, email: user.email, role: user.role },
-      'secretkey'
+      process.env.JWT_SECRET
     );
 
     res.status(200).json({

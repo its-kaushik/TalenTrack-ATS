@@ -7,15 +7,13 @@ const roles = require('../config/roles');
 function isAuthenticated(req, res, next) {
   const token = req.headers.accesstoken;
 
-  console.log(req.headers.accesstoken);
-
   if (!token) {
     return next(
       new BaseError('You are not authenticated', statuscodes.UNAUTHORIZED)
     );
   }
 
-  jwt.verify(token, 'secretkey', (err, user) => {
+  jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
     if (err)
       return next(new BaseError('Token is not valid', statuscodes.FORBIDDEN));
 

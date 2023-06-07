@@ -1,5 +1,5 @@
 const roles = {
-  hr: ['test'],
+  hr: ['test1'],
 
   candidate: [],
 };
