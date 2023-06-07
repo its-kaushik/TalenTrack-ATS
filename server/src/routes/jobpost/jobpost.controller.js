@@ -29,7 +29,14 @@ async function getAllJobPostsHttp(req, res, next) {
       .limitFields()
       .paginate();
 
-    const jobPosts = await getJobPosts.query; //Query gets executed here.
+    const jobPosts = await getJobPosts.query.populate({
+      path: 'postedBy',
+      select: 'name email',
+      populate: {
+        path: 'companyID',
+        select: 'name',
+      },
+    }); //Query gets executed here.
 
     res.status(statuscodes.OK).json({
       status: statuscodes.OK,
@@ -45,7 +52,14 @@ async function getAllJobPostsHttp(req, res, next) {
 
 async function getJobPostHttp(req, res, next) {
   try {
-    const jobPost = await JobPost.findById(req.params.id);
+    const jobPost = await JobPost.findById(req.params.id).populate({
+      path: 'postedBy',
+      select: 'name email',
+      populate: {
+        path: 'companyID',
+        select: 'name',
+      },
+    });
 
     res.status(statuscodes.OK).json({
       status: statuscodes.OK,
