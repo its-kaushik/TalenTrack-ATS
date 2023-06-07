@@ -35,6 +35,7 @@ async function getAllJobPostsHttp(req, res, next) {
       populate: {
         path: 'companyID',
         select: 'name',
+        strictPopulate: false,
       },
     }); //Query gets executed here.
 
@@ -58,6 +59,7 @@ async function getJobPostHttp(req, res, next) {
       populate: {
         path: 'companyID',
         select: 'name',
+        strictPopulate: false,
       },
     });
 

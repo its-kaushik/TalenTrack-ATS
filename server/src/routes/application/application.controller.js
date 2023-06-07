@@ -9,7 +9,7 @@ async function createApplicationHttp(req, res, next) {
 
     const newApplication = new Application({
       ...req.body,
-      CandidateID: req.user.id,
+      appliedBy: req.user.id,
     });
 
     await newApplication.save();
@@ -34,7 +34,10 @@ async function getAllApplicationHttp(req, res, next) {
       .limitFields()
       .paginate();
 
-    const applications = await getApplications.query;
+    const applications = await getApplications.query.populate('job').populate({
+      path: 'appliedBy',
+      select: 'id name email',
+    });
 
     res.status(statuscodes.OK).json({
       status: statuscodes.OK,
@@ -50,7 +53,12 @@ async function getAllApplicationHttp(req, res, next) {
 
 async function getApplicationHttp(req, res, next) {
   try {
-    const application = Application.findById(req.params.id);
+    const application = await Application.findById(req.params.id)
+      .populate('job')
+      .populate({
+        path: 'appliedBy',
+        select: 'id name email',
+      });
 
     res.status(statuscodes.OK).json({
       status: statuscodes.OK,

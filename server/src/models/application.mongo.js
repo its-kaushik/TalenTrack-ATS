@@ -2,9 +2,9 @@ const mongoose = require('mongoose');
 
 const ApplicationSchema = new mongoose.Schema(
   {
-    jobID: {
+    job: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'JobPosting',
+      ref: 'JobPost',
       required: true,
     },
     appliedBy: {
