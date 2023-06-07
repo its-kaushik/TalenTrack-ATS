@@ -14,9 +14,9 @@ app.use(express.json());
 
 app.use('/v1', apiV1);
 
-app.get('/', (req, res) => {
+app.get('/health', (req, res) => {
   res.status(200).json({
-    message: 'Workinmg Fine',
+    message: 'Server is up and running boii..',
   });
 });
 
