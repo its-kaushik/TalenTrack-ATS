@@ -36,7 +36,7 @@ async function login(req, res, next) {
       throw new BaseError('Wrong password or email!', statuscode.BAD_REQUEST);
 
     const accessToken = jwt.sign(
-      { email: user.email, role: user.role },
+      { id: user.id, email: user.email, role: user.role },
       'secretkey'
     );
 
