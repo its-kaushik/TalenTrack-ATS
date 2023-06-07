@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const JobPostingSchema = new mongoose.Schema(
+const JobPostSchema = new mongoose.Schema(
   {
     title: {
       type: String,
@@ -25,4 +25,4 @@ const JobPostingSchema = new mongoose.Schema(
   }
 );
 
-module.exports = mongoose.model('JobPosting', JobPostingSchema);
+module.exports = mongoose.model('JobPost', JobPostSchema);
