@@ -1,7 +1,7 @@
 const roles = {
-  hr: ['test1'],
+  hr: ['modifyJobs', 'viewJobs'],
 
-  candidate: [],
+  candidate: ['viewJobs'],
 };
 
 module.exports = roles;
