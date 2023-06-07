@@ -12,7 +12,7 @@ const JobPostSchema = new mongoose.Schema(
     },
     postedBy: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'HR',
+      ref: 'User',
       required: true,
     },
     isActive: {
