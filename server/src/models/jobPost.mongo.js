@@ -4,7 +4,7 @@ const JobPostSchema = new mongoose.Schema(
   {
     title: {
       type: String,
-      requried: [true, 'Job Title is required.'],
+      required: [true, 'Job Title is required.'],
     },
     description: String,
     salaryRange: {
