@@ -7,9 +7,9 @@ const ApplicationSchema = new mongoose.Schema(
       ref: 'JobPosting',
       required: true,
     },
-    CandidateID: {
+    appliedBy: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'Candidate',
+      ref: 'User',
       required: true,
     },
     status: {

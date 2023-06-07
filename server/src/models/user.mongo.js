@@ -21,7 +21,7 @@ const UserSchema = new mongoose.Schema(
       type: String,
       required: [true, 'Password is required.'],
     },
-    companyID: {
+    company: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Company',
     },
