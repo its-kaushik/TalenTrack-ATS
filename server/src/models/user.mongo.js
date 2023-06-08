@@ -2,6 +2,11 @@ const mongoose = require('mongoose');
 const validator = require('validator');
 const bcrypt = require('bcrypt');
 
+const resumeSchema = new mongoose.Schema({
+  title: String,
+  fileURL: String,
+});
+
 const UserSchema = new mongoose.Schema(
   {
     name: {
@@ -25,12 +30,9 @@ const UserSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Company',
     },
-    resumes: [
-      {
-        title: String,
-        fileUrl: String,
-      },
-    ],
+    resumes: {
+      type: [resumeSchema],
+    },
     role: {
       type: String,
       immutable: true,
