@@ -27,7 +27,7 @@ const UserSchema = new mongoose.Schema(
     },
     resumes: [
       {
-        name: String,
+        title: String,
         fileUrl: String,
       },
     ],
