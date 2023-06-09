@@ -2,6 +2,8 @@ const statuscodes = require('http-status');
 
 const Application = require('../../models/application.mongo');
 const SearchQueryBuilder = require('../../utils/searchQueryBuilder');
+const createTemplate = require('../../utils/templateGenerator');
+const emailService = require('../../services/email');
 
 async function createApplicationHttp(req, res, next) {
   try {
@@ -82,7 +84,44 @@ async function updateApplicationHttp(req, res, next) {
         new: true,
         runValidators: true,
       }
-    );
+    )
+      .populate({
+        path: 'job',
+        select: '_id title description postedBy',
+        populate: {
+          path: 'postedBy',
+          select: '_id name email company',
+          populate: {
+            path: 'company',
+            select: '_id name logoURL',
+          },
+        },
+      })
+      .populate({
+        path: 'appliedBy',
+        select: '_id name email',
+      });
+
+    const emailData = {
+      to: updatedApplication.appliedBy.email,
+      subject: 'Application Status Update',
+    };
+
+    const data = {
+      applicant: {
+        name: updatedApplication.appliedBy.name,
+      },
+      jobTitle: updatedApplication.job.title,
+      hr: {
+        name: updatedApplication.job.postedBy.name,
+        company: updatedApplication.job.postedBy.company.name,
+      },
+    };
+
+    const emailTemplate = createTemplate(data, 'applicationStatusUpdate');
+    await emailService(emailData, emailTemplate);
+
+    console.log('Email Sent Successfully');
 
     res.status(statuscodes.OK).json({
       status: statuscodes.OK,
