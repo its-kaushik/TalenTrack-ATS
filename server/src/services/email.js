@@ -7,7 +7,7 @@ async function emailService(emailData, template) {
     secure: true, // true for 465, false for other ports
     auth: {
       user: 'apikey', // generated ethereal user
-      pass: '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', // generated ethereal password
+      pass: process.env.SG_API_KEY, // generated ethereal password
     },
   });
 
