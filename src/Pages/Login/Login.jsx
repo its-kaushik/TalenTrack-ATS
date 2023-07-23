@@ -138,7 +138,7 @@ const Login = () => {
       const accessToken = response.data.data.accessToken;
       localStorage.setItem("accessToken", accessToken);
 
-      setSuccess("Form Submitted Successfully");
+      setSuccess("Logged-In Successfully ! Redirecting to Home");
 
       await timeout(1500); //for 1 sec delay
 
