@@ -12,11 +12,15 @@ import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
+import { useNavigate } from "react-router-dom";
+import { Link } from "@mui/material";
 
 const pages = ["Dashboard", "Jobs"];
 const settings = ["Logout"];
 
 function Navbar() {
+  const navigate = useNavigate();
+
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
@@ -33,6 +37,34 @@ function Navbar() {
 
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem("accessToken");
+    localStorage.removeItem("userID");
+
+    alert("Logged-out Successfully");
+
+    navigate("/");
+    window.location.reload();
+  };
+  const handleNavClick = (target) => {
+    setAnchorElNav(null);
+
+    let dest = "/";
+
+    switch (target) {
+      case "Dashboard":
+        dest = "/";
+        break;
+      case "Jobs":
+        dest = "/jobs";
+        break;
+      default:
+        break;
+    }
+
+    navigate(dest);
   };
 
   return (
@@ -89,7 +121,12 @@ function Navbar() {
             >
               {pages.map((page) => (
                 <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
+                  <Typography
+                    textAlign="center"
+                    onClick={() => handleNavClick(page)}
+                  >
+                    {page}
+                  </Typography>
                 </MenuItem>
               ))}
             </Menu>
@@ -117,7 +154,7 @@ function Navbar() {
             {pages.map((page) => (
               <Button
                 key={page}
-                onClick={handleCloseNavMenu}
+                onClick={() => handleNavClick(page)}
                 sx={{ my: 2, color: "white", display: "block" }}
               >
                 {page}
@@ -128,7 +165,10 @@ function Navbar() {
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                <Avatar
+                  alt="Profile Picture"
+                  src="/static/images/avatar/1.jpg"
+                />
               </IconButton>
             </Tooltip>
             <Menu
@@ -147,11 +187,16 @@ function Navbar() {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              {settings.map((setting) => (
+              {/* {settings.map((setting) => (
                 <MenuItem key={setting} onClick={handleCloseUserMenu}>
                   <Typography textAlign="center">{setting}</Typography>
                 </MenuItem>
-              ))}
+              ))} */}
+              <MenuItem key="Logout" onClick={handleCloseUserMenu}>
+                <Typography textAlign="center" onClick={handleLogout}>
+                  Logout
+                </Typography>
+              </MenuItem>
             </Menu>
           </Box>
         </Toolbar>
