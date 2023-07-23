@@ -34,7 +34,7 @@ function Copyright(props) {
       {...props}
     >
       {"Copyright © "}
-      <Link color="inherit" href="#">
+      <Link color="inherit" href="/">
         TalenTrack
       </Link>{" "}
       {new Date().getFullYear()}
@@ -138,11 +138,16 @@ const Login = () => {
       const accessToken = response.data.data.accessToken;
       localStorage.setItem("accessToken", accessToken);
 
+      const userID = response.data.data.id;
+      localStorage.setItem("userID", userID);
+
       setSuccess("Logged-In Successfully ! Redirecting to Home");
 
       await timeout(1500); //for 1 sec delay
 
-      navigate("/home");
+      window.location.reload();
+
+      //navigate("/");
 
       //setFormValid("Issue with login");
     } catch (err) {

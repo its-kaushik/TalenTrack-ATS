@@ -153,7 +153,7 @@ const Register = () => {
 
       await timeout(1500); //for 1 sec delay
 
-      navigate("/login");
+      navigate("/");
     } catch (err) {
       if (err.response) {
         // The request was made and the server responded with a status code
@@ -308,7 +308,7 @@ const Register = () => {
 
           <Grid container justifyContent="flex-end">
             <Grid item>
-              <Link href="/login" variant="body2">
+              <Link href="/" variant="body2">
                 Already have an account? Sign in
               </Link>
             </Grid>
