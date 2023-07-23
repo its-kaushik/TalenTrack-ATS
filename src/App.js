@@ -4,6 +4,7 @@ import Navbar from "./Components/Navbar/Navbar";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import Login from "./Pages/Login/Login";
+import Register from "./Pages/Register/Register";
 
 const darkTheme = createTheme({
   palette: {
@@ -11,7 +12,7 @@ const darkTheme = createTheme({
   },
 });
 
-const HomeLayout = () => {
+const LoggedLayout = () => {
   return (
     <div className="app">
       <Navbar />
@@ -20,10 +21,9 @@ const HomeLayout = () => {
   );
 };
 
-const LoginLayout = () => {
+const Layout = () => {
   return (
     <div className="app">
-      <Login />
       <Outlet />
     </div>
   );
@@ -35,7 +35,21 @@ function App() {
   const router = createBrowserRouter([
     {
       path: "/",
-      element: isLogged ? <HomeLayout /> : <LoginLayout />,
+      element: isLogged ? <LoggedLayout /> : <Layout />,
+      children: [
+        {
+          path: "/",
+          element: <Login />,
+        },
+        {
+          path: "/login",
+          element: <Login />,
+        },
+        {
+          path: "/register",
+          element: <Register />,
+        },
+      ],
     },
   ]);
 
