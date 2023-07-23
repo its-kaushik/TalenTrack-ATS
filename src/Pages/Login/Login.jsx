@@ -21,6 +21,9 @@ import {
   Stack,
 } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
+import axios from "axios";
+import { baseUrl } from "../../Utils/constants";
+import { useNavigate } from "react-router";
 
 function Copyright(props) {
   return (
@@ -40,16 +43,22 @@ function Copyright(props) {
   );
 }
 
+function timeout(delay) {
+  return new Promise((res) => setTimeout(res, delay));
+}
+
 const isEmail = (email) =>
   /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email);
 
 const Login = () => {
+  const navigate = useNavigate();
+
   const [showPassword, setShowPassword] = React.useState(false);
 
   //Inputs
   const [emailInput, setEmailInput] = useState();
   const [passwordInput, setPasswordInput] = useState();
-  const [rememberMe, setRememberMe] = useState();
+  const [rememberMe, setRememberMe] = useState(true);
 
   // Inputs Errors
   const [emailError, setEmailError] = useState(false);
@@ -95,7 +104,7 @@ const Login = () => {
   };
 
   //handle Submittion
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     setSuccess(null);
@@ -117,12 +126,35 @@ const Login = () => {
     setFormValid(null);
 
     // Proceed to use the information passed
-    console.log("Email : " + emailInput);
-    console.log("Password : " + passwordInput);
-    console.log("Remember : " + rememberMe);
+
+    try {
+      const response = await axios.post(`${baseUrl}/auth/login`, {
+        email: emailInput,
+        password: passwordInput,
+      });
+
+      console.log(response);
+
+      const accessToken = response.data.data.accessToken;
+      localStorage.setItem("accessToken", accessToken);
+
+      setSuccess("Form Submitted Successfully");
+
+      await timeout(4000); //for 1 sec delay
+
+      navigate("/home");
+
+      //setFormValid("Issue with login");
+    } catch (err) {
+      setFormValid(err.response.data.message);
+    }
+
+    //console.log("Email : " + emailInput);
+    //console.log("Password : " + passwordInput);
+    //console.log("Remember : " + rememberMe);
 
     //Show Successfull Submittion
-    setSuccess("Form Submitted Successfully");
+    //setSuccess("Form Submitted Successfully");
   };
 
   return (
