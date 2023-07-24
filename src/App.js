@@ -6,6 +6,7 @@ import CssBaseline from "@mui/material/CssBaseline";
 import Login from "./Pages/Login/Login";
 import Register from "./Pages/Register/Register";
 import Home from "./Pages/Home/Home";
+import Jobs from "./Pages/Jobs/Jobs";
 
 const darkTheme = createTheme({
   palette: {
@@ -45,6 +46,15 @@ function App() {
         {
           path: "/register",
           element: <Register />,
+        },
+        {
+          path: "/jobs",
+          children: [
+            {
+              path: "all",
+              element: <Jobs />,
+            },
+          ],
         },
       ],
     },
