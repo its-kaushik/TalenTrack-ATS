@@ -1,12 +1,38 @@
-import { Box, Grid, Link, Paper, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  ButtonBase,
+  Grid,
+  Link,
+  Modal,
+  Paper,
+  Typography,
+} from "@mui/material";
 import WorkIcon from "@mui/icons-material/Work";
 import CreateIcon from "@mui/icons-material/Create";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { baseUrl } from "../../Utils/constants";
+import CreateJobModal from "../../Components/CreateJobModal/CreateJobModal";
+
+const style = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  //width: 400,
+  bgcolor: "background.paper",
+  border: "2px solid #000",
+  boxShadow: 24,
+  p: 4,
+};
 
 const Home = () => {
   const [name, setName] = useState("");
+  const [openJobModal, setOpenJobModal] = useState(false);
+
+  const handleModalOpen = () => setOpenJobModal(true);
+  const handleModalClose = () => setOpenJobModal(false);
 
   useEffect(() => {
     axios
@@ -67,32 +93,43 @@ const Home = () => {
               padding: "2.5rem",
             }}
           >
-            <Link
-              underline="none"
-              variant="button"
-              href="/jobs/create"
+            <Button
+              onClick={handleModalOpen}
+              color="primary"
               sx={{
                 display: "flex",
                 alignItems: "center",
+                justifyContent: "start",
                 fontSize: "large",
               }}
             >
               <CreateIcon
+                color="primary"
                 sx={{
                   marginRight: "10px",
                 }}
               />
               CREATE A NEW JOB LISTING
-            </Link>
+            </Button>
+            <Modal
+              open={openJobModal}
+              onClose={handleModalClose}
+              //aria-labelledby="modal-modal-title"
+              //aria-describedby="modal-modal-description"
+            >
+              <Box sx={style}>
+                <CreateJobModal />
+              </Box>
+            </Modal>
 
-            <Link
-              underline="none"
-              variant="button"
+            <Button
+              color="primary"
               href="/jobs/all"
               sx={{
                 display: "flex",
                 alignItems: "center",
                 fontSize: "large",
+                justifyContent: "start",
               }}
             >
               <WorkIcon
@@ -101,7 +138,7 @@ const Home = () => {
                 }}
               />
               VIEW ALL JOBS
-            </Link>
+            </Button>
           </Paper>
         </Grid>
       </Grid>
