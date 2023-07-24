@@ -58,7 +58,7 @@ function Navbar() {
         dest = "/";
         break;
       case "Jobs":
-        dest = "/jobs";
+        dest = "/jobs/all";
         break;
       default:
         break;
