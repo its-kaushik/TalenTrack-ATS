@@ -61,7 +61,7 @@ function App() {
               element: <Jobs />,
             },
             {
-              path: ":id",
+              path: ":jobID",
               element: <SingleJob />,
             },
           ],
