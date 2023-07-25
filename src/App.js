@@ -8,6 +8,7 @@ import Register from "./Pages/Register/Register";
 import Home from "./Pages/Home/Home";
 import Jobs from "./Pages/Jobs/Jobs";
 import ForgotPassword from "./Pages/ForgotPassword/ForgotPassword";
+import SingleJob from "./Pages/SingleJob/SingleJob";
 
 const darkTheme = createTheme({
   palette: {
@@ -58,6 +59,10 @@ function App() {
             {
               path: "all",
               element: <Jobs />,
+            },
+            {
+              path: ":id",
+              element: <SingleJob />,
             },
           ],
         },
