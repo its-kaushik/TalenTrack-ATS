@@ -1,4 +1,5 @@
 import {
+  Alert,
   Box,
   Card,
   CardActions,
@@ -6,12 +7,18 @@ import {
   CardMedia,
   IconButton,
   Link,
+  Stack,
   Typography,
 } from "@mui/material";
-import { baseUrl } from "../../Utils/constants";
+import { baseDataUrl, baseUrl } from "../../Utils/constants";
 import CancelIcon from "@mui/icons-material/Cancel";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import axios from "axios";
+import { useState } from "react";
+
+function timeout(delay) {
+  return new Promise((res) => setTimeout(res, delay));
+}
 
 const ApplicantCard = ({
   name,
@@ -24,6 +31,8 @@ const ApplicantCard = ({
   fetchApplications,
   profileLink,
 }) => {
+  const [statusChangeSuccess, setStatusChangeSuccess] = useState();
+
   async function handleStageChange(endpoint) {
     try {
       const response = await axios.put(
@@ -35,8 +44,10 @@ const ApplicantCard = ({
         }
       );
 
-      alert("Status Changed Successfully!");
+      setStatusChangeSuccess("Status Changed Successfully!");
       fetchApplications();
+      await timeout(2000);
+      setStatusChangeSuccess(null);
     } catch (err) {
       console.log();
     }
@@ -52,7 +63,7 @@ const ApplicantCard = ({
       <CardMedia
         component="img"
         sx={{ width: 151, padding: "10px", borderRadius: "30%" }}
-        image={`http://localhost:4000/uploads/profile-default.png`}
+        image={`${baseDataUrl}/${profileLink}`}
       />
       <Box
         sx={{
@@ -133,6 +144,7 @@ const ApplicantCard = ({
             Resume :
           </Typography>
           <Link
+            href={`${baseDataUrl}/${resumeLink}`}
             sx={{
               flex: 3,
             }}
@@ -160,7 +172,15 @@ const ApplicantCard = ({
           >
             <CheckCircleIcon />
           </IconButton>
+          {statusChangeSuccess && (
+            <Stack sx={{ width: "100%", paddingTop: "10px" }} spacing={2}>
+              <Alert severity="success" size="small">
+                {statusChangeSuccess}
+              </Alert>
+            </Stack>
+          )}
         </CardActions>
+        {/* Show Success if no issues */}
       </Box>
     </Card>
   );
