@@ -22,7 +22,7 @@ const Jobs = () => {
     console.log(showInactive);
   }
 
-  useEffect(() => {
+  const fetchJobs = () => {
     axios
       .get(`${baseUrl}/jobs/?hr=${userID}&isActive=true`, {
         headers: {
@@ -48,6 +48,10 @@ const Jobs = () => {
       .catch((error) => {
         console.log(error);
       });
+  };
+
+  useEffect(() => {
+    fetchJobs();
   }, []);
 
   if (activeJobs === undefined || inactiveJobs === undefined) {
@@ -111,6 +115,7 @@ const Jobs = () => {
                   id={job._id}
                   title={job.title}
                   company={job.hr.company}
+                  fetchJobs={fetchJobs}
                 />
               );
             })}
@@ -149,6 +154,7 @@ const Jobs = () => {
                   id={job._id}
                   title={job.title}
                   company={job.hr.company}
+                  fetchJobs={fetchJobs}
                 />
               );
             })}

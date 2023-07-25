@@ -37,6 +37,7 @@ const JobCard = ({
   id,
   title,
   company,
+  fetchJobs,
 }) => {
   const [expanded, setExpanded] = useState(false);
 
@@ -118,7 +119,7 @@ const JobCard = ({
 
           <Modal open={openJobModal} onClose={handleModalClose}>
             <Box sx={style}>
-              <EditJobModal jobID={id} />
+              <EditJobModal jobID={id} fetchJobs={fetchJobs} />
             </Box>
           </Modal>
 
@@ -166,7 +167,7 @@ const JobCard = ({
 
           <Modal open={openJobModal} onClose={handleModalClose}>
             <Box sx={style}>
-              <EditJobModal jobID={id} />
+              <EditJobModal jobID={id} fetchJobs={fetchJobs} />
             </Box>
           </Modal>
 

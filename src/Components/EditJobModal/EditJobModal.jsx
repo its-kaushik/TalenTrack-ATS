@@ -18,7 +18,7 @@ const {
   Alert,
 } = require("@mui/material");
 
-const EditJobModal = ({ jobID }) => {
+const EditJobModal = ({ jobID, fetchJobs }) => {
   const [title, setTitle] = useState();
   const [titleError, setTitleError] = useState(false);
   const handleTitle = () => {
@@ -125,6 +125,7 @@ const EditJobModal = ({ jobID }) => {
       );
 
       setSuccess("Job Post Edited Successfully !");
+      fetchJobs();
     } catch (err) {
       if (err.response) {
         // The request was made and the server responded with a status code
