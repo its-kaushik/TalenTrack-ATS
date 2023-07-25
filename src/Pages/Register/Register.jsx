@@ -142,6 +142,7 @@ const Register = () => {
       formData.append("email", emailInput);
       formData.append("password", passwordInput);
       formData.append("company", companyInput);
+      formData.append("role", "hr");
 
       const response = await axios.post(`${baseUrl}/auth/register`, formData, {
         headers: {
