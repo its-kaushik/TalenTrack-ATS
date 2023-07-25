@@ -7,12 +7,26 @@ import {
   CardHeader,
   Collapse,
   IconButton,
+  Modal,
   Typography,
 } from "@mui/material";
 import { ModeEdit } from "@mui/icons-material";
 import { useState } from "react";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { styled } from "@mui/material/styles";
+import EditJobModal from "../EditJobModal/EditJobModal";
+
+const style = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  //width: 400,
+  bgcolor: "background.paper",
+  border: "2px solid #000",
+  boxShadow: 24,
+  p: 4,
+};
 
 const JobCard = ({
   desc,
@@ -23,8 +37,14 @@ const JobCard = ({
   id,
   title,
   company,
+  fetchJobs,
 }) => {
   const [expanded, setExpanded] = useState(false);
+
+  const [openJobModal, setOpenJobModal] = useState(false);
+
+  const handleModalOpen = () => setOpenJobModal(true);
+  const handleModalClose = () => setOpenJobModal(false);
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
@@ -92,10 +112,16 @@ const JobCard = ({
       </CardContent>
       {!expanded && (
         <CardActions disableSpacing>
-          <IconButton href={`edit/${id}`}>
+          <IconButton onClick={handleModalOpen}>
             <ModeEdit />
           </IconButton>
           <Button href={`${id}`}>View</Button>
+
+          <Modal open={openJobModal} onClose={handleModalClose}>
+            <Box sx={style}>
+              <EditJobModal jobID={id} fetchJobs={fetchJobs} />
+            </Box>
+          </Modal>
 
           <ExpandMore
             expand={expanded}
@@ -134,10 +160,16 @@ const JobCard = ({
       </Collapse>
       {expanded && (
         <CardActions disableSpacing>
-          <IconButton href={`edit/${id}`}>
+          <IconButton onClick={handleModalOpen}>
             <ModeEdit />
           </IconButton>
           <Button href={`${id}`}>View</Button>
+
+          <Modal open={openJobModal} onClose={handleModalClose}>
+            <Box sx={style}>
+              <EditJobModal jobID={id} fetchJobs={fetchJobs} />
+            </Box>
+          </Modal>
 
           <ExpandMore
             expand={expanded}
