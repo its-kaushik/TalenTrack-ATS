@@ -7,6 +7,7 @@ import Login from "./Pages/Login/Login";
 import Register from "./Pages/Register/Register";
 import Home from "./Pages/Home/Home";
 import Jobs from "./Pages/Jobs/Jobs";
+import ForgotPassword from "./Pages/ForgotPassword/ForgotPassword";
 
 const darkTheme = createTheme({
   palette: {
@@ -46,6 +47,10 @@ function App() {
         {
           path: "/register",
           element: <Register />,
+        },
+        {
+          path: "/forgot-password",
+          element: <ForgotPassword />,
         },
         {
           path: "/jobs",
