@@ -14,6 +14,8 @@ import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
 import { useNavigate } from "react-router-dom";
 import { Link } from "@mui/material";
+import axios from "axios";
+import { baseDataUrl, baseUrl } from "../../Utils/constants";
 
 const pages = ["Dashboard", "Jobs"];
 const settings = ["Logout"];
@@ -23,6 +25,8 @@ function Navbar() {
 
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+
+  const [profile, setProfile] = React.useState();
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -66,6 +70,21 @@ function Navbar() {
 
     navigate(dest);
   };
+
+  React.useEffect(() => {
+    axios
+      .get(`${baseUrl}/auth/profile`, {
+        headers: {
+          accessToken: localStorage.getItem("accessToken"),
+        },
+      })
+      .then((response) => {
+        setProfile(response.data.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
 
   return (
     <AppBar position="static">
@@ -167,7 +186,7 @@ function Navbar() {
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                 <Avatar
                   alt="Profile Picture"
-                  src="/static/images/avatar/1.jpg"
+                  src={`${baseDataUrl}/${profile.profile}`}
                 />
               </IconButton>
             </Tooltip>
