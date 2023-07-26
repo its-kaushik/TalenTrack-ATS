@@ -9,7 +9,7 @@
     "install": "npm run install-server && npm run install-client",
     "server": "npm run watch --prefix server",
     "client": "npm run start --prefix client",
-    "watch": "npm run server & npm run client",
+    "watch": "concurrently \"npm run server\" \"npm run client\"",
     "deploy": "npm run build --prefix client && npm start --prefix server"
   },
   "repository": {
@@ -24,5 +24,8 @@
   "bugs": {
     "url": "https://github.com/its-kaushik/ats-client-revamped/issues"
   },
-  "homepage": "https://github.com/its-kaushik/ats-client-revamped#readme"
+  "homepage": "https://github.com/its-kaushik/ats-client-revamped#readme",
+  "dependencies": {
+    "concurrently": "^8.2.0"
+  }
 }
