@@ -9,6 +9,9 @@
 #uploaded data
 /data
 
+#logs
+/src/log
+
 # testing
 /coverage
 
