@@ -1,0 +1,28 @@
+{
+  "name": "talentrack-ats",
+  "version": "1.0.0",
+  "description": "An Application Traking System",
+  "main": "index.js",
+  "scripts": {
+    "install-server": "npm install --prefix server",
+    "install-client": "npm install --prefix client",
+    "install": "npm run install-server && npm run install-client",
+    "server": "npm run watch --prefix server",
+    "client": "npm run start --prefix client",
+    "watch": "npm run server & npm run client",
+    "deploy": "npm run build --prefix client && npm start --prefix server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/its-kaushik/ats-client-revamped.git"
+  },
+  "keywords": [
+    "ats"
+  ],
+  "author": "Mayank Kaushik",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/its-kaushik/ats-client-revamped/issues"
+  },
+  "homepage": "https://github.com/its-kaushik/ats-client-revamped#readme"
+}

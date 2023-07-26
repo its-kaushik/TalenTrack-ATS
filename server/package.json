@@ -4,9 +4,9 @@
   "description": "Backend of TalenTrack ATS",
   "main": "src/server.js",
   "scripts": {
-    "start": "set PORT=8000&& node ./src/server.js",
+    "start": "set PORT=3001&& node ./src/server.js",
     "watch": "nodemon ./src/server.js",
-    "cluster": "set PORT=8000&& pm2 start src/server.js -i 1"
+    "cluster": "set PORT=3001&& pm2 start src/server.js -i 1"
   },
   "author": "Mayank Kaushik",
   "license": "ISC",
