@@ -1,5 +1,5 @@
-const baseUrl = "http://localhost:4000/v1";
-const baseDataUrl = "http://localhost:4000/uploads";
+const baseUrl = "/v1";
+const baseDataUrl = "/uploads";
 
 module.exports = {
   baseUrl,
