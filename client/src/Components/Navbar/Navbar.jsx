@@ -186,7 +186,7 @@ function Navbar() {
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                 <Avatar
                   alt="Profile Picture"
-                  src={`${baseDataUrl}/${profile.profile}`}
+                  src={`${baseDataUrl}/${profile?.profile}`}
                 />
               </IconButton>
             </Tooltip>
