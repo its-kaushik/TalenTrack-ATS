@@ -6,7 +6,7 @@
   "scripts": {
     "start": "set PORT=3001&& node ./src/server.js",
     "watch": "nodemon ./src/server.js",
-    "cluster": "set PORT=3001&& pm2 start src/server.js -i 1"
+    "cluster": "set PORT=3001&& pm2 start src/server.js -i 2"
   },
   "author": "Mayank Kaushik",
   "license": "ISC",
