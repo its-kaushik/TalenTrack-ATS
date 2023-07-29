@@ -276,6 +276,23 @@ async function rejectApplication(req, res, next) {
   }
 }
 
+async function updateApplication(req, res, next) {
+  try {
+    const application = await Application.findByIdAndUpdate(
+      req.params.id,
+      req.body,
+      {
+        new: true,
+        runValidators: true,
+      }
+    );
+
+    responseHandler(res, application);
+  } catch (err) {
+    next(err);
+  }
+}
+
 module.exports = {
   createApplication,
   getApplicationsByUser,
@@ -284,4 +301,5 @@ module.exports = {
   deleteApplicationByID,
   moveToNextStage,
   rejectApplication,
+  updateApplication,
 };

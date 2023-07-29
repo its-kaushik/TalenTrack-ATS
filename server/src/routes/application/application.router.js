@@ -8,6 +8,7 @@ const {
   moveToNextStage,
   rejectApplication,
   getAllApplications,
+  updateApplication,
 } = require('./application.controller');
 const { isAuthenticated } = require('../../services/auth');
 
@@ -21,10 +22,12 @@ applicationRouter.get('/', isAuthenticated, getAllApplications);
 
 applicationRouter.get('/byGroup', getApplicationsGroupedByStage);
 
-applicationRouter.put('/next/:id', moveToNextStage);
+//applicationRouter.put('/next/:id', moveToNextStage);
 
-applicationRouter.put('/reject/:id', rejectApplication);
+//applicationRouter.put('/reject/:id', rejectApplication);
 
 applicationRouter.delete('/:id', isAuthenticated, deleteApplicationByID);
+
+applicationRouter.put('/:id', isAuthenticated, updateApplication);
 
 module.exports = applicationRouter;
