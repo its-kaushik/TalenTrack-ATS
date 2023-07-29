@@ -33,7 +33,7 @@ const ApplicantCard = ({
 }) => {
   const [statusChangeSuccess, setStatusChangeSuccess] = useState();
 
-  async function handleStageChange(endpoint) {
+  /* async function handleStageChange(endpoint) {
     try {
       const response = await axios.put(
         `${baseUrl}/applications/${endpoint}/${applicationID}`,
@@ -49,7 +49,71 @@ const ApplicantCard = ({
       await timeout(2000);
       setStatusChangeSuccess(null);
     } catch (err) {
-      console.log();
+      console.log(err);
+    }
+  } */
+
+  async function handleNextStage() {
+    try {
+      let body;
+
+      if (round === totalRounds) {
+        body = {
+          status: "accepted",
+          lastround: "accepted",
+          round: round + 1,
+        };
+      } else {
+        body = {
+          status: "in-progress",
+          lastround: `round-${round}`,
+          round: round + 1,
+        };
+      }
+
+      const response = await axios.put(
+        `${baseUrl}/applications/${applicationID}`,
+        body,
+        {
+          headers: {
+            accessToken: localStorage.getItem("accessToken"),
+          },
+        }
+      );
+
+      setStatusChangeSuccess("Status Changed Successfully!");
+      fetchApplications();
+      await timeout(2000);
+      setStatusChangeSuccess(null);
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  async function handleRejectApplication() {
+    try {
+      const body = {
+        status: "rejected",
+        lastround: `round-${round}`,
+        round: -1,
+      };
+
+      const response = await axios.put(
+        `${baseUrl}/applications/${applicationID}`,
+        body,
+        {
+          headers: {
+            accessToken: localStorage.getItem("accessToken"),
+          },
+        }
+      );
+
+      setStatusChangeSuccess("Status Changed Successfully!");
+      fetchApplications();
+      await timeout(2000);
+      setStatusChangeSuccess(null);
+    } catch (err) {
+      console.log(err);
     }
   }
 
@@ -154,7 +218,7 @@ const ApplicantCard = ({
         </Box>
         <CardActions>
           <IconButton
-            onClick={() => handleStageChange("reject")}
+            onClick={handleRejectApplication}
             disabled={round > totalRounds || round === -1 ? true : false}
             sx={{
               color: "red",
@@ -164,7 +228,7 @@ const ApplicantCard = ({
           </IconButton>
 
           <IconButton
-            onClick={() => handleStageChange("next")}
+            onClick={handleNextStage}
             disabled={round > totalRounds || round === -1 ? true : false}
             sx={{
               color: "lawngreen",
