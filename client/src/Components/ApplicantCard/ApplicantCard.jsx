@@ -127,7 +127,7 @@ const ApplicantCard = ({
       <CardMedia
         component="img"
         sx={{ width: 151, padding: "10px", borderRadius: "30%" }}
-        image={`${baseDataUrl}/${profileLink}`}
+        image={`${profileLink}`}
       />
       <Box
         sx={{
@@ -208,7 +208,7 @@ const ApplicantCard = ({
             Resume :
           </Typography>
           <Link
-            href={`${baseDataUrl}/${resumeLink}`}
+            href={`${resumeLink}`}
             sx={{
               flex: 3,
             }}

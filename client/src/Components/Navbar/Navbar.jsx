@@ -184,10 +184,7 @@ function Navbar() {
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar
-                  alt="Profile Picture"
-                  src={`${baseDataUrl}/${profile?.profile}`}
-                />
+                <Avatar alt="Profile Picture" src={`${profile?.profile}`} />
               </IconButton>
             </Tooltip>
             <Menu
