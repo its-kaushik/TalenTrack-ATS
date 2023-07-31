@@ -15,7 +15,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/its-kaushik/ats-client-revamped.git"
+    "url": "git+https://github.com/its-kaushik/TalenTrack-ATS.git"
   },
   "keywords": [
     "ats"
@@ -23,9 +23,9 @@
   "author": "Mayank Kaushik",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/its-kaushik/ats-client-revamped/issues"
+    "url": "https://github.com/its-kaushik/TalenTrack-ATS/issues"
   },
-  "homepage": "https://github.com/its-kaushik/ats-client-revamped#readme",
+  "homepage": "https://github.com/its-kaushik/TalenTrack-ATS#readme",
   "dependencies": {
     "concurrently": "^8.2.0"
   }
