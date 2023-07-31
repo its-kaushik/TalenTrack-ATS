@@ -285,7 +285,41 @@ async function updateApplication(req, res, next) {
         new: true,
         runValidators: true,
       }
-    );
+    )
+      .populate({
+        path: 'job',
+        select: 'totalRounds title hr',
+        populate: {
+          path: 'hr',
+          select: '_id name email company',
+        },
+      })
+      .populate({
+        path: 'applicant',
+        select: '_id name email',
+      });
+
+    const emailData = {
+      to: application.applicant.email,
+      subject: 'Applicaition Status Update',
+    };
+
+    const data = {
+      applicant: {
+        name: application.applicant.name,
+      },
+      jobTitle: application.job.title,
+      hr: {
+        name: application.job.hr.name,
+        company: application.job.hr.name,
+      },
+    };
+
+    const emailTemplate = createTemplate(data, 'applicationStatusUpdate');
+
+    await emailService(emailData, emailTemplate);
+
+    console.log('email sent');
 
     responseHandler(res, application);
   } catch (err) {

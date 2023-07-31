@@ -5,19 +5,16 @@ const User = require('../../models/user.mongo');
 const BaseError = require('../../errors/baseError');
 const createTemplate = require('../../utils/templateGenerator');
 const emailService = require('../../services/email');
+const config = require('../../config.js');
 
 async function register(req, res, next) {
   try {
     const salt = bcrypt.genSaltSync(10);
     const hash = bcrypt.hashSync(req.body.password, salt);
 
-    //console.log(req.files);
-
-    //console.log(req.files.profile?.[0].path)
-
     const profileURL =
-      req.files.profile?.[0].path.slice(13) ?? 'profile-default.png';
-    const resumeURL = req.files.resume?.[0].path.slice(13) ?? 'NA';
+      req.files.profile?.[0].location ?? config.DEFAULT_PROFILE_URL;
+    const resumeURL = req.files.resume?.[0].location ?? 'NA';
 
     const newUser = new User({
       ...req.body,
@@ -27,6 +24,8 @@ async function register(req, res, next) {
     });
 
     await newUser.save();
+
+    //console.log(req.files.profile?.[0].location);
 
     responseHandler(res, null, 'User Created Successfully', 201);
   } catch (err) {
