@@ -120,13 +120,13 @@ const ApplicantCard = ({
   return (
     <Card
       sx={{
-        width: "500px",
+        width: "550px",
         display: "flex",
       }}
     >
       <CardMedia
         component="img"
-        sx={{ width: 151, padding: "10px", borderRadius: "30%" }}
+        sx={{ width: 200, padding: "5px" }}
         image={`${profileLink}`}
       />
       <Box
@@ -215,6 +215,56 @@ const ApplicantCard = ({
           >
             Link
           </Link>
+        </Box>
+        <Box
+          sx={{
+            display: "flex",
+            padding: "10px",
+            //backgroundColor: "red",
+            width: "100%",
+          }}
+        >
+          <Typography
+            sx={{
+              flex: 1,
+              fontWeight: "bold",
+              //backgroundColor: "red",
+            }}
+          >
+            Round :
+          </Typography>
+          <Typography
+            sx={{
+              flex: 3,
+            }}
+          >
+            {round}
+          </Typography>
+        </Box>
+        <Box
+          sx={{
+            display: "flex",
+            padding: "10px",
+            //backgroundColor: "red",
+            width: "100%",
+          }}
+        >
+          <Typography
+            sx={{
+              flex: 1,
+              fontWeight: "bold",
+              //backgroundColor: "red",
+            }}
+          >
+            Status :
+          </Typography>
+          <Typography
+            sx={{
+              flex: 3,
+            }}
+          >
+            {status}
+          </Typography>
         </Box>
         <CardActions>
           <IconButton
