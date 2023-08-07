@@ -16,6 +16,8 @@ const {
   Button,
   Stack,
   Alert,
+  Switch,
+  FormControlLabel,
 } = require("@mui/material");
 
 const EditJobModal = ({ jobID, fetchJobs }) => {
@@ -87,6 +89,8 @@ const EditJobModal = ({ jobID, fetchJobs }) => {
   const [formValid, setFormValid] = useState();
   const [success, setSuccess] = useState();
 
+  const [isActive, setIsActive] = useState(true);
+
   const handleSubmit = async (event) => {
     event.preventDefault();
 
@@ -116,6 +120,7 @@ const EditJobModal = ({ jobID, fetchJobs }) => {
           salaryRange,
           totalRounds: roundValue,
           positions: posValue,
+          isActive: isActive,
         },
         {
           headers: {
@@ -160,6 +165,7 @@ const EditJobModal = ({ jobID, fetchJobs }) => {
         setSalaryRange(job.salaryRange);
         setPosValue(job.positions);
         setRoundValue(job.totalRounds);
+        setIsActive(job.isActive);
       })
       .catch((err) => {
         console.log(err);
@@ -315,6 +321,19 @@ const EditJobModal = ({ jobID, fetchJobs }) => {
                   />
                 </Grid>
               </Grid>
+            </Grid>
+            <Grid item xs={12}>
+              <FormControlLabel
+                control={
+                  <Switch
+                    checked={isActive}
+                    onChange={() => {
+                      setIsActive(!isActive);
+                    }}
+                  />
+                }
+                label="Is Active ?"
+              />
             </Grid>
           </Grid>
           <Button
