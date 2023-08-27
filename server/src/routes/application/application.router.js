@@ -10,24 +10,49 @@ const {
   getAllApplications,
   updateApplication,
 } = require('./application.controller');
-const { isAuthenticated } = require('../../services/auth');
+const { isAuthenticated, isAuthorized } = require('../../services/auth');
 
 const applicationRouter = express.Router();
 
-applicationRouter.post('/', isAuthenticated, createApplication);
+applicationRouter.post(
+  '/',
+  isAuthenticated,
+  isAuthorized('createApplication'),
+  createApplication
+);
 
-applicationRouter.get('/', isAuthenticated, getAllApplications);
+applicationRouter.get(
+  '/',
+  isAuthenticated,
+  isAuthorized('viewApplications'),
+  getAllApplications
+);
 
 //applicationRouter.get('/self', isAuthenticated, getApplicationsByUser);
 
-applicationRouter.get('/byGroup', getApplicationsGroupedByStage);
+applicationRouter.get(
+  '/byGroup',
+  isAuthenticated,
+  isAuthorized('viewApplications'),
+  getApplicationsGroupedByStage
+);
 
 //applicationRouter.put('/next/:id', moveToNextStage);
 
 //applicationRouter.put('/reject/:id', rejectApplication);
 
-applicationRouter.delete('/:id', isAuthenticated, deleteApplicationByID);
+applicationRouter.delete(
+  '/:id',
+  isAuthenticated,
+  isAuthorized('deleteApplication'),
+  deleteApplicationByID
+);
 
-applicationRouter.put('/:id', isAuthenticated, updateApplication);
+applicationRouter.put(
+  '/:id',
+  isAuthenticated,
+  isAuthorized('updateApplication'),
+  updateApplication
+);
 
 module.exports = applicationRouter;

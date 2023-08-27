@@ -1,5 +1,5 @@
 const express = require('express');
-const { isAuthenticated } = require('../../services/auth');
+const { isAuthenticated, isAuthorized } = require('../../services/auth');
 const {
   createJob,
   getAllJobs,
@@ -10,14 +10,24 @@ const {
 
 const jobRouter = express.Router();
 
-jobRouter.post('/', isAuthenticated, createJob);
+jobRouter.post('/', isAuthenticated, isAuthorized('createJob'), createJob);
 
-jobRouter.get('/', getAllJobs);
+jobRouter.get('/', isAuthenticated, isAuthorized('viewJobs'), getAllJobs);
 
-jobRouter.put('/:id', updateJobByID);
+jobRouter.put(
+  '/:id',
+  isAuthenticated,
+  isAuthorized('modifyJob'),
+  updateJobByID
+);
 
-jobRouter.get('/self', isAuthenticated, getSelfPostedJobs);
+jobRouter.get(
+  '/self',
+  isAuthenticated,
+  isAuthorized('viewJobs'),
+  getSelfPostedJobs
+);
 
-jobRouter.get('/:id', getJob);
+jobRouter.get('/:id', isAuthenticated, isAuthorized('viewJobs'), getJob);
 
 module.exports = jobRouter;
