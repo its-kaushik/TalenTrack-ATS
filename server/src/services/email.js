@@ -1,6 +1,6 @@
 const nodemailer = require('nodemailer');
 
-async function emailService(emailData, template) {
+async function sendEmail(emailData, template) {
   let transporter = nodemailer.createTransport({
     host: 'smtp.sendgrid.net',
     port: 465,
@@ -22,4 +22,6 @@ async function emailService(emailData, template) {
   //console.log(emailData.to);
 }
 
-module.exports = emailService;
+module.exports = {
+  sendEmail,
+};

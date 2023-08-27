@@ -206,7 +206,7 @@ async function moveToNextStage(req, res, next) {
 
     const emailTemplate = createTemplate(data, 'applicationStatusUpdate');
 
-    await emailService(emailData, emailTemplate);
+    await emailService.sendEmail(emailData, emailTemplate);
 
     console.log('email sent');
 
@@ -266,7 +266,7 @@ async function rejectApplication(req, res, next) {
 
     const emailTemplate = createTemplate(data, 'applicationStatusUpdate');
 
-    await emailService(emailData, emailTemplate);
+    await emailService.sendEmail(emailData, emailTemplate);
 
     console.log('email sent');
 
@@ -317,7 +317,7 @@ async function updateApplication(req, res, next) {
 
     const emailTemplate = createTemplate(data, 'applicationStatusUpdate');
 
-    await emailService(emailData, emailTemplate);
+    await emailService.sendEmail(emailData, emailTemplate);
 
     console.log('email sent');
 

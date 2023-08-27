@@ -105,7 +105,7 @@ async function forgotPassword(req, res, next) {
 
     const emailTemplate = createTemplate(data, 'resetCode');
 
-    await emailService(emailData, emailTemplate);
+    await emailService.sendEmail(emailData, emailTemplate);
 
     console.log('email sent');
 
