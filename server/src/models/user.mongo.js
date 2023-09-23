@@ -1,12 +1,17 @@
 const mongoose = require('mongoose');
 const validator = require('validator');
 const bcrypt = require('bcrypt');
+const config = require('../config');
 
 const UserSchema = new mongoose.Schema(
   {
-    name: {
+    firstName: {
       type: String,
-      required: [true, 'Name is requried'],
+      required: [true, 'First Name is requried'],
+    },
+    lastName: {
+      type: String,
+      required: [true, 'Last Name is requried'],
     },
     email: {
       type: String,
@@ -23,14 +28,18 @@ const UserSchema = new mongoose.Schema(
     },
     company: {
       type: String,
-      default: 'NA',
+      default: 'N/A',
     },
     securityCode: {
       type: String,
     },
     profile: {
       type: String,
-      default: 'abc.png',
+      default: config.DEFAULT_PROFILE_URL,
+      validate: {
+        validator: validator.isURL,
+        message: 'Invalid URL',
+      },
     },
     resume: {
       type: String,
