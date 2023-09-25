@@ -4,7 +4,7 @@ const { responseHandler } = require('../../utils/responseHandler');
 const SearchQueryBuilder = require('../../utils/searchQueryBuilder');
 const { default: mongoose } = require('mongoose');
 const emailService = require('../../services/email');
-const createTemplate = require('../../utils/templateGenerator');
+//const createTemplate = require('../../utils/templateGenerator');
 
 async function createApplication(req, res, next) {
   try {
@@ -204,9 +204,9 @@ async function moveToNextStage(req, res, next) {
       },
     };
 
-    const emailTemplate = createTemplate(data, 'applicationStatusUpdate');
+    //const emailTemplate = createTemplate(data, 'applicationStatusUpdate');
 
-    await emailService.sendEmail(emailData, emailTemplate);
+    //await emailService.sendEmail(emailData, emailTemplate);
 
     console.log('email sent');
 
@@ -264,9 +264,9 @@ async function rejectApplication(req, res, next) {
       },
     };
 
-    const emailTemplate = createTemplate(data, 'applicationStatusUpdate');
+    //const emailTemplate = createTemplate(data, 'applicationStatusUpdate');
 
-    await emailService.sendEmail(emailData, emailTemplate);
+    //await emailService.sendEmail(emailData, emailTemplate);
 
     console.log('email sent');
 
@@ -315,9 +315,9 @@ async function updateApplication(req, res, next) {
       },
     };
 
-    const emailTemplate = createTemplate(data, 'applicationStatusUpdate');
+    //const emailTemplate = createTemplate(data, 'applicationStatusUpdate');
 
-    await emailService.sendEmail(emailData, emailTemplate);
+    //await emailService.sendEmail(emailData, emailTemplate);
 
     console.log('email sent');
 

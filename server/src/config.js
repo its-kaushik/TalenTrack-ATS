@@ -8,6 +8,9 @@ const config = {
   AWS_SECRET_ACCESS_KEY: process.env.AWS_SECRET_ACCESS_KEY,
   DEFAULT_PROFILE_URL:
     'https://kaushik-poc-s3.s3.ap-south-1.amazonaws.com/profile-1690740755623-377599469.png',
+  GMAIL_USER: process.env.GMAIL_USER,
+  GMAIL_PASS: process.env.GMAIL_PASS,
+  JWT_SECRET: process.env.JWT_SECRET,
 };
 
 module.exports = config;

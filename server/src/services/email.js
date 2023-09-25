@@ -1,27 +1,54 @@
 const nodemailer = require('nodemailer');
+const config = require('../config');
+const compileTemplate = require('../utils/templateCompiler');
+const EmailTemplates = require('../models/emailTemplate.mongo');
 
-async function sendEmail(emailData, template) {
-  let transporter = nodemailer.createTransport({
-    host: 'smtp.sendgrid.net',
-    port: 465,
-    secure: true, // true for 465, false for other ports
-    auth: {
-      user: 'apikey', // generated ethereal user
-      pass: process.env.SG_API_KEY, // generated ethereal password
-    },
-  });
+class EmailService {
+  #transporter;
 
-  let info = await transporter.sendMail({
-    from: '"TalenTrack" <freeuc298@gmail.com>', // sender address
-    to: emailData.to, // list of receivers
-    subject: emailData.subject, // Subject line
-    //text: "Hello world?", // plain text body
-    html: template, // html body
-  });
+  constructor() {
+    this.#transporter = nodemailer.createTransport({
+      service: 'Gmail',
+      auth: {
+        user: config.GMAIL_USER,
+        pass: config.GMAIL_PASS,
+      },
+    });
+  }
 
-  //console.log(emailData.to);
+  #sendMail(options) {
+    return new Promise((resolve, reject) => {
+      this.#transporter.sendMail(options, (error, info) => {
+        if (error) {
+          reject(error);
+        } else {
+          resolve(info);
+        }
+      });
+    });
+  }
+
+  async sendVerificationEmail(userEmail, verificationToken) {
+    const templateDocument = await EmailTemplates.findOne({
+      name: 'verificationEmail',
+    });
+
+    const template = templateDocument.content;
+
+    const data = {
+      verificationToken,
+    };
+    const compiledTemplate = compileTemplate(data, template);
+
+    const emailOptions = {
+      from: `"TalenTrack" <${config.GMAIL_USER}>`, // sender
+      to: userEmail,
+      subject: 'Verify Your Email For TalenTrack',
+      html: compiledTemplate,
+    };
+
+    return this.#sendMail(emailOptions);
+  }
 }
 
-module.exports = {
-  sendEmail,
-};
+module.exports = EmailService;

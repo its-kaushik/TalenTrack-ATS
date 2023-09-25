@@ -2,32 +2,38 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const { responseHandler } = require('../../utils/responseHandler');
 const User = require('../../models/user.mongo');
+const EmailTemplate = require('../../models/emailTemplate.mongo');
 const BaseError = require('../../errors/baseError');
-const createTemplate = require('../../utils/templateGenerator');
-const emailService = require('../../services/email');
 const config = require('../../config.js');
+const EmailService = require('../../services/email');
 
 async function register(req, res, next) {
   try {
     const salt = bcrypt.genSaltSync(10);
     const hash = bcrypt.hashSync(req.body.password, salt);
 
-    const profileURL =
-      req.files.profile?.[0].location ?? config.DEFAULT_PROFILE_URL;
-    const resumeURL = req.files.resume?.[0].location ?? 'NA';
-
     const newUser = new User({
       ...req.body,
-      profile: profileURL,
-      resume: resumeURL,
       password: hash,
     });
 
     await newUser.save();
 
-    //console.log(req.files.profile?.[0].location);
+    const verificationToken = jwt.sign(
+      {
+        id: newUser.id,
+        email: newUser.email,
+      },
+      config.JWT_SECRET
+    );
 
-    responseHandler(res, null, 'User Created Successfully', 201);
+    const emailService = new EmailService();
+    const email = await emailService.sendVerificationEmail(
+      newUser.email,
+      verificationToken
+    );
+
+    responseHandler(res, null, 'User Created Successfully!', 201);
   } catch (err) {
     next(err);
   }
@@ -43,7 +49,7 @@ async function login(req, res, next) {
 
     const accessToken = jwt.sign(
       { id: user.id, email: user.email, role: user.role },
-      process.env.JWT_SECRET
+      config.JWT_SECRET
     );
 
     responseHandler(res, {

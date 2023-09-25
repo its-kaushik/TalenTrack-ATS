@@ -22,6 +22,10 @@ const UserSchema = new mongoose.Schema(
         message: 'Invalid Email Address',
       },
     },
+    isVerified: {
+      type: Boolean,
+      default: false,
+    },
     password: {
       type: String,
       required: [true, 'Password is required.'],

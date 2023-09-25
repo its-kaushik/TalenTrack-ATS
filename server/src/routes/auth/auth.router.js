@@ -8,19 +8,12 @@ const {
   resetPassword,
   getProfile,
 } = require('./auth.controller');
-const upload = require('../../utils/uploadFile');
+
 const { isAuthenticated } = require('../../services/auth');
 
 const authRouter = express.Router();
 
-authRouter.post(
-  '/register',
-  upload.fields([
-    { name: 'resume', maxCount: 1 },
-    { name: 'profile', maxCount: 1 },
-  ]),
-  register
-);
+authRouter.post('/register', register);
 
 authRouter.post('/login', login);
 
