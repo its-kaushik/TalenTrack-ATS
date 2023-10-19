@@ -2,7 +2,6 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const { responseHandler } = require('../../utils/responseHandler');
 const User = require('../../models/user.mongo');
-const EmailTemplate = require('../../models/emailTemplate.mongo');
 const BaseError = require('../../errors/baseError');
 const config = require('../../config.js');
 const EmailService = require('../../services/email');

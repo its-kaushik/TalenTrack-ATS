@@ -10,10 +10,12 @@ const {
 } = require('./auth.controller');
 
 const { isAuthenticated } = require('../../services/auth');
+const validate = require('../../middlewares/validate');
+const { registerUser } = require('./auth.validation');
 
 const authRouter = express.Router();
 
-authRouter.post('/register', register);
+authRouter.post('/register', validate(registerUser), register);
 
 authRouter.post('/login', login);
 
