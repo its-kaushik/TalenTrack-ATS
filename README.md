@@ -3,6 +3,7 @@
 ## Table of contents
 
 1. Requirements
+2. Screenshots
 
 ### 1. Requirements
 
@@ -11,3 +12,10 @@
 - Based on results of interview round(s), HR can move the candidate to the next round or reject him. HR can track and update candidate interview process till the end (selection/rejection)
 
 - Candidate App (mobile), candidate can register/login into app, fill in their skill set and upload their resume. They can search companies and apply for on their opened job positions. Once shortlisted candidate can track his progress through interview round till the end (selection/rejection)
+
+### 2. Screenshots
+
+![alttext](https://github.com/its-kaushik/TalenTrack-ATS/blob/master/images/img1.png)
+![alttext](https://github.com/its-kaushik/TalenTrack-ATS/blob/master/images/img2.png)
+![altext](https://github.com/its-kaushik/TalenTrack-ATS/blob/master/images/img3.png)
+![alttext](https://github.com/its-kaushik/TalenTrack-ATS/blob/master/images/img4.png)
